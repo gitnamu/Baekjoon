@@ -17,8 +17,7 @@ public class Main {
 		dp[2] = scores[1] + scores[2];
 		
 		for(int i=3;i<=n;i++) {
-			dp[i] = Math.max(dp[i-3] + scores[i], dp[i-2] + scores[i]);
-			dp[i] = Math.max(dp[i], dp[i-3] + scores[i-1] + scores[i]);	
+			dp[i] = Math.max(dp[i-3] + scores[i-1] + scores[i], dp[i-2] + scores[i]);
 		}
 		System.out.println(dp[n]);
     }
