@@ -1,39 +1,47 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		String word = sc.nextLine();
-		int commandLength = sc.nextInt();
+		String word =  br.readLine();
+		int commandLength = Integer.parseInt(br.readLine());
 		
-		Stack<Character> left = new Stack<>();
-		Stack<Character> right = new Stack<>();
+		Stack<String> left = new Stack<>();
+		Stack<String> right = new Stack<>();
 		
 		for(int i=0;i<word.length();i++) {
-			left.push(word.charAt(i));
+			left.push(word.substring(i,i+1));
 		}
 		
 		for(int i=0;i<commandLength;i++) {
-			char command = sc.next().charAt(0);
+			 StringTokenizer st = new StringTokenizer(br.readLine());
+             String command = st.nextToken();
 			
 			switch(command) {
-			case 'L':
+			case "L":
 				if(!left.isEmpty())		right.push(left.pop());
 				break;
-			case 'D':
+			case "D":
 				if(!right.isEmpty())	left.push(right.pop());
 				break;
-			case 'B':
+			case "B":
 				if(!left.isEmpty())		left.pop();	
 				break;
-			case 'P':
-				left.push(sc.nextLine().charAt(1));	
+			case "P":
+				left.push(st.nextToken());	
 				break;
 			}
 		}
 		while(!left.isEmpty()) 		right.push(left.pop());
-		while(!right.isEmpty())		System.out.print(right.pop());
+		while(!right.isEmpty())		bw.write(right.pop());
+		bw.flush();
 	}
 }
