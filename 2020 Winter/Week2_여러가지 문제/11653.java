@@ -11,29 +11,15 @@ public class Main {
     	StringBuilder sb = new StringBuilder();
     	
     	int n = Integer.parseInt(br.readLine());
-    	boolean[] arr = new boolean[n+1];
-    	arr[1] = true;
-    	
-    	for(int i=2;i*i<n;i++) {
-			if(arr[i] == false) {
-				int iter = i*2;
-    			while(iter<=n) {
-    				arr[iter] = true;
-    				iter += i;
-    			}
-			}
-		}
-
-    	while(arr[n]) {
-    		for(int i=2;i<n;i++) {
-    			if(!arr[i] && n%i==0) {
-    				n /= i;
-    				sb.append(i).append("\n");
-    				break;
-    			}
-    		}
+    	for(int i=2; i*i<=n; i++) {
+    		while(n%i==0) {
+    			n /= i;
+				sb.append(i).append("\n");
+        	}
     	}
-    	sb.append(n).append("\n");
+    	if(n != 1) {
+    		sb.append(n).append("\n");
+    	}
     	bw.write(sb.toString());
     	bw.flush();
     }
